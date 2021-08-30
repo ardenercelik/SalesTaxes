@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesTaxesAPI.Contexts;
 using SalesTaxesAPI.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace SalesTaxesAPI.Repositories

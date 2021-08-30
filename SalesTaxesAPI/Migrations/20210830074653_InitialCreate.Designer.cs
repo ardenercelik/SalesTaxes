@@ -9,8 +9,8 @@ using SalesTaxesAPI.Contexts;
 namespace SalesTaxesAPI.Migrations
 {
     [DbContext(typeof(TaxableItemContext))]
-    [Migration("20210829233757_BasePrice")]
-    partial class BasePrice
+    [Migration("20210830074653_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

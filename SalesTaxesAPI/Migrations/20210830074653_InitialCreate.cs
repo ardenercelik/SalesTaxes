@@ -17,6 +17,7 @@ namespace SalesTaxesAPI.Migrations
                     IsExempt = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsImported = table.Column<bool>(type: "INTEGER", nullable: false),
                     TaxRate = table.Column<double>(type: "REAL", nullable: false),
+                    BasePrice = table.Column<double>(type: "REAL", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "date()"),
                     DateUpdated = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "date()")
                 },

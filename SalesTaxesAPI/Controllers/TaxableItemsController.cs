@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SalesTaxesAPI.Contexts;
 using SalesTaxesAPI.Models;
 using SalesTaxesAPI.Repositories;
+using SalesTaxesAPI.Services;
 namespace SalesTaxesAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -15,10 +15,13 @@ namespace SalesTaxesAPI.Controllers
     public class TaxableItemsController : ControllerBase
     {
         ITaxableItemRepository _repository;
+        ITaxService _taxService;
 
-        public TaxableItemsController(ITaxableItemRepository repository)
+        public TaxableItemsController(ITaxableItemRepository repository, ITaxService taxService)
         {
             _repository = repository;
+            _taxService = taxService;
+
         }
 
         // GET: api/TaxableItems
@@ -33,7 +36,7 @@ namespace SalesTaxesAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TaxableItem>> GetTaxableItem(int id)
         {
-            var taxableItem = await _repository.GetItem(id);
+            TaxableItem taxableItem = await _repository.GetItem(id);
 
             if (taxableItem == null)
             {
@@ -67,12 +70,15 @@ namespace SalesTaxesAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<TaxableItem>> PostTaxableItem(TaxableItemPostDTO taxableItem)
         {
+            double taxRate = _taxService.CalculateTaxRate(taxableItem);
             var item = new TaxableItem()
             {
                 IsImported = taxableItem.IsImported,
                 IsExempt = taxableItem.IsExempt,
                 Name = taxableItem.Name,
-                TaxRate = 0.05
+                TaxRate = taxRate,
+                TaxValue = _taxService.CalculateTax(taxableItem.BasePrice, taxRate),
+                BasePrice = taxableItem.BasePrice
             };
             await _repository.PostItem(item);
 

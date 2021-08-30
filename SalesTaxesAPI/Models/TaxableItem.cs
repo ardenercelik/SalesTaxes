@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesTaxesAPI.Models
 {
-    public class TaxableItem :BaseEntity
+    public class TaxableItem : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,11 +17,25 @@ namespace SalesTaxesAPI.Models
         public bool IsExempt { get; set; }
         [Required]
         public bool IsImported { get; set; }
-
+        public double TaxValue { get; set; }
         public double TaxRate { get; set; }
         [Required]
         public double BasePrice { get; set; }
 
+    }
+    
+
+    public class TaxableItemPostDTO
+    {
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public bool IsExempt { get; set; }
+        [Required]
+        public bool IsImported { get; set; }
+        [Required]
+        public double BasePrice { get; set; }
     }
     public class BaseEntity
     {
@@ -35,20 +49,8 @@ namespace SalesTaxesAPI.Models
         public DateTime DateUpdated { get; set; }
     }
 
-    public class TaxableItemPostDTO
-    {
-        [Required]
-        public string Name { get; set; }
+    
 
-        [Required]
-        public bool IsExempt { get; set; }
-        [Required]
-        public bool IsImported { get; set; }
-    }
-
-    public class TaxableItemGetDTO : TaxableItem
-    {
-        public double TaxValue { get; set; }
-    }
+    
 
 }

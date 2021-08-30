@@ -1,20 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿using SalesTaxesAPI.Models;
+using System;
 namespace SalesTaxesAPI.Services
 {
-    public class TaxService
+    public class TaxService : ITaxService
     {
-        public double CalculateTaxRate()
+        public double CalculateTaxRate(TaxableItemPostDTO taxableItem)
         {
-            return 0.05;
+            var isImported = taxableItem.IsImported;
+            var isExempt = taxableItem.IsExempt;
+            double taxRate = 0.0;
+
+            if (isImported)
+            {
+                taxRate += 0.05;
+            }
+            if (!isExempt)
+            {
+                taxRate += 0.10;
+            }
+            return Math.Round(taxRate, 2);
         }
 
-        public double CalculateTax()
+        public double CalculateTax(double basePrice, double taxRate)
         {
-            return 14.99;
+            double price = basePrice * taxRate;
+            var result = Math.Ceiling(price * 20) / 20;
+            return result;
         }
+
+
+
     }
 }
