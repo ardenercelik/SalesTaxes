@@ -1,8 +1,11 @@
 You need to have docker and make to start the project. If you want to  run the backend tests you also need to install dotnet cli tool.
 You can run the project by typing make start. It will trigger docker-compose.
-Then you can interact with the from localhost:8082. You can also view backend endpoints from http://localhost:5000/swagger/index.html
+Then you can interact with the project from localhost:8082. You can also view backend endpoints from http://localhost:5000/swagger/index.html
+
+Stack - net5, react, redux, entity framework, docker
 Manuel steps to run:
     clone the repo
+    cd SalesTaxes
     docker build -f Dockerfile.ui -t taxes-ui .
     docker build -f Dockerfile.api -t taxes-api .
     docker-compose  up
