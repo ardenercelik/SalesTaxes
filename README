@@ -1,0 +1,25 @@
+You need to have docker and make to start the project. If you want to  run the backend tests you also need to install dotnet cli tool.
+You can run the project by typing make start. It will trigger docker-compose.
+Then you can interact with the from localhost:8082. You can also view backend endpoints from http://localhost:5000/swagger/index.html
+Manuel steps to run:
+    clone the repo
+    docker build -f Dockerfile.ui -t taxes-ui .
+    docker build -f Dockerfile.api -t taxes-api .
+    docker-compose  up
+
+To clean the project you can type:
+    docker-compose down --rmi all
+
+Project structure:
+    SalesTaxesAPI -> Backend for the app
+        Context -> db connection
+        Data -> db init with data
+        Migrations -> ef backend Migrations
+        Models -> DB Models
+        Repositories -> db interactions
+        Services -> Tax calculation Services
+    sales-taxes-client:
+        deploy -> nginx conf
+        component -> react component
+        const -> constants
+        redux -> redux store

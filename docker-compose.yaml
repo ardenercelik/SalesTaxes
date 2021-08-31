@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  backend:
+    image: "taxes-api"
+    container_name: taxes-api
+    
+    environment:
+      ASPNETCORE_URLS: "http://*:80"
+    ports:
+      - "5000:80"
+  frontend:
+    image: "taxes-ui"
+    ports:
+      - "8082:80"
+    links:
+      - backend
